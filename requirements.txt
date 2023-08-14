@@ -1,0 +1,11 @@
+cs50
+Flask
+Flask-Session
+flask_mail
+requests
+datetime
+jwt
+werkzeug.security
+helpers
+re
+functools

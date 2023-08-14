@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+
+    <div class="m-3">
+        <h1 class="mb-3 text-center">Register</h1>
+        <hr class="my-4">
+        <form action="/register" method="post">
+            <div class="row g-3">
+                <div class="col-sm-6 form-floating">
+                    <input name="username" autocomplete="off" autofocus type="text" class="form-control" id="username" placeholder="Username">
+                    <label class="form-label">Username</label>
+                </div>
+                <div class="col-sm-6 form-floating">
+                    <input name="email" autocomplete="off" autofocus type="email" class="form-control" id="email" placeholder="name@example.com">
+                    <label class="form-label">Email address</label>
+                </div>
+                <div class="col-sm-6 form-floating">
+                    <input name="password" autocomplete="off" autofocus type="password" class="form-control" id="password" placeholder="Password">
+                    <label class="form-label">Password</label>
+                </div>
+                <div class="col-sm-6 form-floating">
+                    <input name="confirmation" autocomplete="off" autofocus type="password" class="form-control" id="confirmation" placeholder="Password Confirmation">
+                    <label class="form-label">Confirm Password</label>
+                </div>
+                <div class="col-sm-6">
+                    <ul class="list-group">
+                        <li class="list-group-item active">Your password should:</li>
+                        <li class="list-group-item">&#8226; Have at least one uppercase and one lowercase character.</li>
+                        <li class="list-group-item">&#8226; Have at least one number.</li>
+                        <li class="list-group-item">&#8226; Have at least one special symbol.</li>
+                        <li class="list-group-item">&#8226; Be between 6 to 20 characters long.</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row g-3 text-center">
+                <p>You already have an account <a href="/login">Log In</a></p>
+            </div>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Register</button>
+        </form>
+    </div>
+
+
+{% endblock %}

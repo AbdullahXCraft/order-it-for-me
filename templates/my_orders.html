@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Orders
+{% endblock %}
+
+{% block main %}
+    <div class="m-3">
+        <h1 class="mb-3 text-center">My Orders</h1>
+        <hr class="my-4">
+            {% if my_orders %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Website</th>
+                            <th scope="col">Number of Requsts</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in my_orders %}
+                            <tr>
+                                <th scope="row"><a href="{{ order.web_url}}">{{ order.web_name}}</a></th>
+                                <td>{{ order.req_count }}</td>
+                                <td>{{ order.req_total | sar }}</td>
+                                <td>{{ order.deadline }}</td>
+                                <td>
+                                {% if order.closed %}
+                                    <strong>Closed</strong>
+                                {% elif had_finished(order.deadline) %}
+                                    <strong>Past Deadline</strong>
+                                {% else %}
+                                    <strong>Open</strong>
+                                {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group gap-1" role="group">
+                                        <a href="/edit_order/{{ encode({'id': order.id}) }}"><button class="w-100 btn btn-primary btn-lg">Edit</button></a>
+                                        <a href="/requests/{{ encode({'id': order.id}) }}"><button class="w-100 btn btn-primary btn-lg ps-3">Requests</button></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+                <p>Looks like you dont have any orders, <a href="/new_order">New Order</a></p>
+            {% endif %}
+    </div>
+{% endblock %}

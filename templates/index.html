@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <div class="m-3">
+        <h1 class="mb-3 text-center">Index</h1>
+        <hr class="my-4">
+        <h1 class="mb-3">Available orders</h1>
+            {% if available_orders %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Website</th>
+                            <th scope="col">Order Owner</th>
+                            <th scope="col">Deadline</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in available_orders %}
+                            <tr>
+                                <th scope="row"><a href="{{ order.web_url}}">{{ order.web_name}}</a></th>
+                                <td>{{ order.username }}</td>
+                                <td>{{ order.deadline}}</td>
+                                {% if order.closed %}
+                                    <td><strong>Closed by Owner</strong></td>
+                                {% elif had_finished(order.deadline) %}
+                                    <td><strong>Past Deadline</strong></td>
+                                {% else %}
+                                    <td><a href="/new_request/{{ encode({'id': order.id}) }}"><button class="w-100 btn btn-primary btn-lg">Request</button></a></td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+                <p>Looks like there are no available orders right now check later or create <a href="/new_order">New Order</a></p>
+            {% endif %}
+    </div>
+{% endblock %}

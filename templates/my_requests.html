@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Requests
+{% endblock %}
+
+{% block main %}
+    <div class="m-3">
+        <h1 class="mb-3 text-center">My Requests</h1>
+        <hr class="my-4">
+            {% if my_requests %}
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Products</th>
+                            <th scope="col">Website</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for request in my_requests %}
+                            <tr>
+                                <th scope="row"><a href="{{ request.prod_url}}">{{ request.prod_name}}</a></th>
+                                <td><a href="{{ request.web_url}}">{{ request.web_name}}</a></td>
+                                <td>{{ request.prod_price | sar }}</td>
+                                <td>{{ request.prod_amount }}</td>
+                                <td>{{ request.total | sar}}</td>
+                                {% if request.closed == 1 %}
+                                    <td><strong>Canceld</strong></td>
+                                {% elif request.closed == 2 %}
+                                    <td><strong>Rejected</strong></td>
+                                {% else %}
+                                <td>
+                                    <button type="button" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal{{ loop.index }}">
+                                        Cancel
+                                    </button>
+                                    <td>
+
+                                    <div class="modal fade" id="exampleModal{{ loop.index }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Cancel Request</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                            Are you sure you want to cancel this request, you can't undo this action.
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <a href="/cancel_request/{{ encode({'id': request.id, 'code': 1, 'order_id': request.order_id}) }}"><button type="button" class="btn btn-primary">Cancel</button></a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+                <p>Looks like you don't have any requests right now go to <a href="/">Index Page</a> to request</p>
+            {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+.error {
+    color: #dc3545;
+}
+
+.success {
+    color: #198754;
+}
+.passwordfix{
+    display: block;
+    text-align: start;
+}
+
+.form-floating .form-label{
+    padding-left: 1.25rem!important;
+}
+
+#navbar {
+    position: fixed; /* Make it stick/fixed */
+    top: 0; /* Stay on top */
+    width: 100%; /* Full width */
+    transition: top 0.3s; /* Transition effect when sliding down (and up) */
+    z-index: 1;
+}
+
+footer {
+    transition: all 3s linear;
+}
